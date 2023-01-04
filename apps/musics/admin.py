@@ -10,7 +10,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display = [
         'datetime_created',
         'datestart_subscribe',
-        'user'
+        'user',
     ]
 
     def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Genre] = None):
@@ -19,8 +19,6 @@ class AuthorAdmin(admin.ModelAdmin):
 
         return self.readonly_fields + (
             'datetime_created',
-            'datetime_update',
-            'subscribe',
             'followers',
             )
 
@@ -28,32 +26,30 @@ class AuthorAdmin(admin.ModelAdmin):
 class GenreAdmin(admin.ModelAdmin):
     model = Genre
     list_display = [
-        'id',
         'title'
     ]
 
-    def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Genre] = None):
-        if not obj:
-            return self.readonly_fields
+    # def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Genre] = None):
+    #     if not obj:
+    #         return self.readonly_fields
 
-        return self.readonly_fields + ('id')
+    #     return self.readonly_fields + ('title')
 
 
 class MusicAdmin(admin.ModelAdmin):
     model = Music
     list_display = [
-        'id',
         'title',
         'duration',
-        'author_id',
-        'genre_id',
+        'author',
+        'status',
     ]
 
-    def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Music] = None):
-        if not obj:
-            return self.readonly_fields
+    # def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Music] = None):
+    #     if not obj:
+    #         return self.readonly_fields
 
-        return self.readonly_fields + ('id')
+    #     return self.readonly_fields + ('title')
 
 
 admin.site.register(Author, AuthorAdmin)

@@ -4,13 +4,8 @@ from abstracts.models import AbstractModel
 
 # Create your models here.
 class Author(AbstractModel):
-    """User but will push music for three hudred baks."""
+    """User but will push music for three hundred baks."""
 
-    id = models.IntegerField(
-        serialize=True,
-        verbose_name='author_id',
-        primary_key=True
-    )
     datestart_subscribe = models.DateField(
         verbose_name="Начало подписки",
         auto_now_add=True,
@@ -40,19 +35,15 @@ class Author(AbstractModel):
 class Genre(AbstractModel):
     """Model Genre"""
 
-    id = models.IntegerField(
-        serialize=True,
-        verbose_name='genre_id',
-        primary_key=True
-    )
     title = models.CharField(
         verbose_name='Жанр',
         max_length=50,
+        unique=True,
     )
 
     class Meta:
         ordering = (
-            '-id',
+            '-title',
         )
         verbose_name='Жанр'
         verbose_name_plural='Жанры'
@@ -64,37 +55,40 @@ class Genre(AbstractModel):
 class Music(AbstractModel):
     """Model Music"""
 
-    id = models.IntegerField(
-        serialize=True,
-        verbose_name='music_id',
-        primary_key=True,
+    status_pattern = (
+        ('BR', 'Предрелиз'),
+        ('R', 'Релиз'),
+        ('AR', 'Unknown')
     )
     title = models.CharField(
         verbose_name='Название',
         max_length=50,
     )
     duration = models.TimeField(
-        verbose_name='длительность'
+        verbose_name='длительность',
     )
-    author_id = models.ForeignKey(
-        Author,
-        on_delete=models.PROTECT,
-        null=False,
-        blank=False,
+    author = models.ForeignKey(
+        to='Author',
+        on_delete=models.CASCADE,
+        verbose_name='автор',
     )
-    genre_id = models.ForeignKey(
-        Genre,
-        on_delete=models.PROTECT,
-        null=False,
-        blank=False,
+    genre = models.ManyToManyField(
+        to=Genre,
+        verbose_name='жанры'
+    )
+    status = models.CharField(
+        verbose_name='статус',
+        choices=status_pattern,
+        # default='Unknown',
+        max_length=100
     )
 
     class Meta:
         ordering = (
-            '-author_id',
+            '-datetime_created',
         )
-        verbose_name = 'песня'
-        verbose_name_plural = 'песни'
+        verbose_name = 'трек'
+        verbose_name_plural = 'треки'
 
     def __str__(self) -> str:
         return self.title
