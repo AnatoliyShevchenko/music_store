@@ -1,6 +1,9 @@
 from django.db import models
+from django.db.models import QuerySet
 from django.contrib.auth.models import User
-from abstracts.models import AbstractModel
+
+from abstracts.models import AbstractModel, AbstractQuerySet
+from auths.models import CustomUser
 
 # Create your models here.
 class Author(AbstractModel):
@@ -11,12 +14,12 @@ class Author(AbstractModel):
         auto_now_add=True,
     )
     followers = models.ManyToManyField(
-        to=User,
+        to=CustomUser,
         related_name='follower',
         verbose_name='подписчики',
     )
     user = models.ForeignKey(
-        to=User,
+        to=CustomUser,
         on_delete=models.CASCADE,
         verbose_name='пользователь',
     )
@@ -29,7 +32,7 @@ class Author(AbstractModel):
         verbose_name_plural = 'Авторы'
 
     def __str__(self) -> str:
-        return self.user.username
+        return self.user.email
 
 
 class Genre(AbstractModel):
@@ -55,7 +58,7 @@ class Genre(AbstractModel):
 class Music(AbstractModel):
     """Model Music"""
 
-    status_pattern = (
+    STATUS_PATTERN = (
         ('BR', 'Предрелиз'),
         ('R', 'Релиз'),
         ('AR', 'Unknown')
@@ -78,8 +81,8 @@ class Music(AbstractModel):
     )
     status = models.CharField(
         verbose_name='статус',
-        choices=status_pattern,
-        # default='Unknown',
+        choices=STATUS_PATTERN,
+        default='Unknown',
         max_length=100
     )
 

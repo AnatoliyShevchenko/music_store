@@ -23,6 +23,9 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'debug_toolbar',
+    'django_extensions',
 ]
 PROJECT_APPS = [
     'auths.apps.AuthsConfig',
@@ -31,7 +34,10 @@ PROJECT_APPS = [
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
 
+AUTH_USER_MODEL = 'auths.CustomUser'
+
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -91,6 +97,14 @@ USE_I18N = True
 
 USE_TZ = True
 
+#------------------------------------------
+# email
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST = config('EMAIL_HOST', cast=str)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', cast=str)
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', cast=str)
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -112,5 +126,33 @@ SHELL_PLUS_PRE_IMPORTS = [
     ('datetime', ('datetime', 'timedelta', 'date')),
     ('json', ('loads', 'dumps'))
 ]
+SHELL_PLUS_MODEL_ALIASES = {
+    'musics': {
+        'Author': 'Au',
+        'Genre': 'G',
+        'Music': 'M'
+    }
+}
 
 IPYTHON_KERNEL_DISPLAY_NAME = "Django Shell-Plus"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+DEBUG_TOOLBAR_PANELS = [
+    'debug_toolbar.panels.history.HistoryPanel',
+    'debug_toolbar.panels.versions.VersionsPanel',
+    'debug_toolbar.panels.timer.TimerPanel',
+    'debug_toolbar.panels.settings.SettingsPanel',
+    'debug_toolbar.panels.headers.HeadersPanel',
+    'debug_toolbar.panels.request.RequestPanel',
+    'debug_toolbar.panels.sql.SQLPanel',
+    'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.templates.TemplatesPanel',
+    'debug_toolbar.panels.cache.CachePanel',
+    'debug_toolbar.panels.signals.SignalsPanel',
+    'debug_toolbar.panels.logging.LoggingPanel',
+    'debug_toolbar.panels.redirects.RedirectsPanel',
+    'debug_toolbar.panels.profiling.ProfilingPanel',
+]

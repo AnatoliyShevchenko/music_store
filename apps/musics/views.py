@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.db.models import QuerySet
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+
 from musics.models import (
     Music,
     Genre,
@@ -9,7 +11,16 @@ from musics.models import (
 
 # Create your views here.
 def main(request, *args, **kwargs):
-    return render(template_name='musics/home_page.html', request=request, context={})
+    u: QuerySet = Music.objects.filter(
+        genre=Genre.objects.get(title='Рок').id
+    )
+    return render(
+        request=request,
+        template_name='musics/home_page.html',
+        context={
+            'u': u
+        }
+    )
 
 def music(request, *args, **kwargs):
     return render(template_name='musics/music_create_page.html', request=request, context={})
