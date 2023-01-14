@@ -2,10 +2,34 @@ from django.db import models
 from django.db.models import QuerySet
 from django.contrib.auth.models import User
 
-from abstracts.models import AbstractModel, AbstractQuerySet
+from abstracts.models import AbstractModel, AbstractManager
 from auths.models import CustomUser
 
 # Create your models here.
+class AuthorManager(AbstractManager):
+    """Manager for author"""
+
+    def get_music_by_user(self, user: str) -> QuerySet['Music']:
+        id: str =\
+            Author.objects.get(user=user).id
+        return self.filter(
+            author=id
+        )
+    
+    def get_music_by_first_name(self, first_name: str) -> QuerySet['Music']:
+        id: str =\
+            Author.objects.get(first_name=first_name).id
+        return self.filter(
+            author=id
+        )
+
+    def get_music_by_last_name(self, last_name: str) -> QuerySet['Music']:
+        id: str =\
+            Author.objects.get(last_name=last_name).id
+        return self.filter(
+            author=id
+        )
+
 class Author(AbstractModel):
     """User but will push music for three hundred baks."""
 
@@ -23,6 +47,11 @@ class Author(AbstractModel):
         on_delete=models.CASCADE,
         verbose_name='пользователь',
     )
+    title = models.CharField(
+        max_length=30,
+        verbose_name='Исполнитель',
+        unique=True
+    )
 
     class Meta:
         ordering = (
@@ -32,7 +61,7 @@ class Author(AbstractModel):
         verbose_name_plural = 'Авторы'
 
     def __str__(self) -> str:
-        return self.user.email
+        return self.title
 
 
 class Genre(AbstractModel):
@@ -55,6 +84,24 @@ class Genre(AbstractModel):
         return self.title
 
 
+class MusicManager(AbstractManager):
+    """Manager special for Music."""
+
+    def get_music_by_genre(self, title: str) -> QuerySet['Music']:
+            id: str =\
+                Genre.objects.get(title=title).id
+            return self.filter(
+                genre=id
+            )
+
+    def get_music_by_status(self, status: str) -> QuerySet['Music']:
+        title: str =\
+            Music.objects.get(status=status).title
+        return self.filter(
+            music=title
+        )
+
+
 class Music(AbstractModel):
     """Model Music"""
 
@@ -71,9 +118,9 @@ class Music(AbstractModel):
         verbose_name='длительность',
     )
     author = models.ForeignKey(
-        to='Author',
+        to=Author,
         on_delete=models.CASCADE,
-        verbose_name='автор',
+        verbose_name='исполнитель',
     )
     genre = models.ManyToManyField(
         to=Genre,

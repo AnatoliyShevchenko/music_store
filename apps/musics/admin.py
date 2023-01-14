@@ -8,12 +8,13 @@ from typing import Optional
 class AuthorAdmin(admin.ModelAdmin):
     model = Author
     list_display = [
+        'title',
         'datetime_created',
         'datestart_subscribe',
         'user',
     ]
 
-    def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Genre] = None):
+    def get_readonly_fields(self, request: WSGIRequest, obj: Optional[Author] = None):
         if not obj:
             return self.readonly_fields
 

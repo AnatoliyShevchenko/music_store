@@ -33,3 +33,4 @@ def post_save_player(
         ],
         fail_silently=False
     )
+    print('something happend')

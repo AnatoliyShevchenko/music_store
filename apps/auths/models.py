@@ -34,25 +34,26 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(
         self,
         email: str,
-        password: str
+        password: str,
     ) -> 'CustomUser':
 
         custom_user: 'CustomUser' = self.model(
             email=self.normalize_email(email),
-            password=password
+            password=password,
         )
+        custom_user.is_staff = True
         custom_user.is_superuser = True
         custom_user.set_password(password)
         custom_user.save(using=self._db)
         return
 
-    def create_test_user(self) -> 'CustomUser':
+    def create_test_user(self, email, password) -> 'CustomUser':
 
         custom_user: 'CustomUser' = self.model(
-            email=self.normalize_email('root2@gmail.com'),
-            password='qwerty'
+            email=self.normalize_email(email),
+            password=password
         )
-        custom_user.set_password('qwerty')
+        custom_user.set_password(password)
         custom_user.save(using=self._db)
         return custom_user
 
@@ -79,6 +80,10 @@ class CustomUser(
         max_length=70,
         null=True,
         blank=True
+    )
+    is_staff = models.BooleanField(
+        verbose_name='staff',
+        default=False
     )
     is_superuser = models.BooleanField(
         verbose_name='superuser',
