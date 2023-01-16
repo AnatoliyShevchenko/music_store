@@ -9,7 +9,26 @@
     <title>Music</title>
 </head>
 <body>
-    <h1 class="main_title">Music</h1>
-    
+    <form action="" method="post">
+        <h1 class="title">Create Music</h1>
+        <input type="text" name="title" id="title" placeholder="title">
+        <input type="time" name="duration" id="duration" placeholder="duration">
+        <input type="text" name="author" id="author" placeholder="author">
+
+        <fieldset class="status_fieldset">
+            {% for status in ctx_status %}
+            <input type="radio" class="sts" id="status" name="status">
+            <label for="status" style="text-transform: capitalize;">{{ status.1 }}</label>
+            <br>
+            {% endfor %}
+        </fieldset>
+        <fieldset class="genres">
+            {% for genre in ctx_genres %}
+            <input type="radio" class="sts" id="genre" name="genre">
+            <label for="genre" style="text-transform: capitalize;">{{ genre }}</label>
+            <br>
+            {% endfor %}
+        </fieldset>
+    </form>
 </body>
 </html>

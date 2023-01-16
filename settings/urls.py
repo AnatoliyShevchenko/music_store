@@ -5,10 +5,12 @@ from django.conf.urls.static import static
 
 from apps.musics import views
 from apps.auths import views as au_views
+from apps.musics.views import MainView, MusicView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main),
+    path('', MainView.as_view()),
+    path('music/', MusicView.as_view()),
     path('create-music/', views.music),
     path('create-genre/', views.genre),
     path('create-author/', views.author),
