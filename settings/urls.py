@@ -5,15 +5,19 @@ from django.conf.urls.static import static
 
 from apps.musics import views
 from apps.auths import views as au_views
-from apps.musics.views import MainView, MusicView
+from apps.musics.views import (
+    MainView, 
+    MusicView,
+    GenreView,
+    AuthorView,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainView.as_view()),
     path('music/', MusicView.as_view()),
-    path('create-music/', views.music),
-    path('create-genre/', views.genre),
-    path('create-author/', views.author),
+    path('genres/', GenreView.as_view()),
+    path('authors/', AuthorView.as_view()),
     path('activate/<str:code>/', au_views.activate_user)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

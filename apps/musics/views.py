@@ -17,28 +17,6 @@ from musics.models import (
     Author
 )
 
-# Create your views here.
-# def main(request, *args, **kwargs):
-#     u: QuerySet = Music.objects.filter(
-#         genre=Genre.objects.get(title='Рок').id
-#     )
-#     return render(
-#         request=request,
-#         template_name='musics/home_page.html',
-#         context={
-#             'u': u
-#         }
-#     )
-
-def music(request, *args, **kwargs):
-    return render(template_name='musics/music_create_page.html', request=request, context={})
-
-def genre(request, *args, **kwargs):
-    return render(template_name='musics/genre_create_page.html', request=request, context={})
-
-def author(request, *args, **kwargs):
-    return render(template_name='musics/author_create_page.html', request=request, context={})
-
 
 class MainView(View):
     """Main view."""
@@ -75,5 +53,33 @@ class MusicView(View):
             context={
                 'ctx_status' : status,
                 'ctx_genres' : genres,
+            }
+        )
+
+
+class GenreView(View):
+    """View special for music model."""
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        titles: list[tuple] = Genre.objects.all()
+        return render(
+            request=request,
+            template_name='musics/genre_create_page.html',
+            context={
+                'ctx_titles' : titles,
+            }
+        )
+
+
+class AuthorView(View):
+    """View special for music model."""
+
+    def get(self, request: HttpRequest, *args, **kwargs):
+        titles: list[tuple] = Author.objects.all()
+        return render(
+            request=request,
+            template_name='musics/author_create_page.html',
+            context={
+                'ctx_titles' : titles,
             }
         )

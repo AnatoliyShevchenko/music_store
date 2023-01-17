@@ -1,34 +1,46 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Music</title>
+    <link rel="stylesheet" href="{% static 'css/music_create_page.css' %}">
 </head>
+
 <body>
     <form action="" method="post">
-        <h1 class="title">Create Music</h1>
-        <input type="text" name="title" id="title" placeholder="title">
-        <input type="time" name="duration" id="duration" placeholder="duration">
-        <input type="text" name="author" id="author" placeholder="author">
+        <h1 class="title">Create music</h1>
+        <fieldset>
+            <input type="text" id="title" name="title" placeholder="Title">
+        </fieldset>
+        <fieldset>
+            <input type="time" name="duration" id="duration">
+        </fieldset>
 
         <fieldset class="status_fieldset">
             {% for status in ctx_status %}
-            <input type="radio" class="sts" id="status" name="status">
-            <label for="status" style="text-transform: capitalize;">{{ status.1 }}</label>
-            <br>
-            {% endfor %}
+            <div class="content">
+                <input type="radio" class="sts" id="status" name="status">
+                <label for="status" style="text-transform: capitalize;">
+                    {{ status.1 }}
+                </label>
+                {% endfor %}
+            </div>
         </fieldset>
-        <fieldset class="genres">
+
+        <fieldset>
             {% for genre in ctx_genres %}
-            <input type="radio" class="sts" id="genre" name="genre">
-            <label for="genre" style="text-transform: capitalize;">{{ genre }}</label>
-            <br>
+            <div class="content">
+                <input type="checkbox" name="genre" id="{{ genre.title }}">
+                <label for="{{ genre.title }}" style="text-transform: capitalize;">
+                    {{ genre.title }}
+                </label>
+            </div>
             {% endfor %}
         </fieldset>
     </form>
 </body>
+
 </html>
