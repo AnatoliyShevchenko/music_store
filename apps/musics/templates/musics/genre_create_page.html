@@ -6,27 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genres</title>
-    <link rel="stylesheet" href="{% static 'css/music_create_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     <form action="" method="post">
+        {% csrf_token %}
         <h1 class="title">Create genres</h1>
         <fieldset>
             <input type="text" id="title" name="title" placeholder="Title">
         </fieldset>
 
-        <fieldset class="titles">
+        <fieldset>
             {% for title in ctx_titles %}
             <div class="content">
-                <input type="radio" class="ttl" id="title" name="title">
+                <input type="checkbox" class="ttl" id="title" name="title">
                 <label for="title" style="text-transform: capitalize;">
                     {{ title }}
                 </label>
                 {% endfor %}
             </div>
         </fieldset>
-
+        <input type="submit" name="create" id="create" value="create">
     </form>
 </body>
 

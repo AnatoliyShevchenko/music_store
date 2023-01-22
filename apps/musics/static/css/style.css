@@ -26,7 +26,7 @@ body::after {
 form {
     display: flex;
     flex-direction: column;
-    height: 500px;
+    height: 650px;
     width: 350px;
     align-items: center;
     box-shadow: 0 0 15px black, 0 0 15px rgb(14, 161, 224);
@@ -35,6 +35,10 @@ form {
     font-weight: 100;
 
     color: white;
+}
+.content {
+    display: flex;
+    align-items: center;
 }
 
 fieldset {
@@ -45,7 +49,10 @@ fieldset {
 }
 
 input {
-    height: 90%;
+    height: 35px;
+}
+input[type="text"], input[type="submit"], input[type="time"]{
+    width: 90%;
 }
 
 .title {

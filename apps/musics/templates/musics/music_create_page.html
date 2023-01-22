@@ -6,24 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music</title>
-    <link rel="stylesheet" href="{% static 'css/music_create_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
 <body>
     <form action="" method="post">
-        <h1 class="title">Create music</h1>
-        <fieldset>
-            <input type="text" id="title" name="title" placeholder="Title">
-        </fieldset>
-        <fieldset>
-            <input type="time" name="duration" id="duration">
-        </fieldset>
+        {% csrf_token %}
+        <h1 class="title">Create - music</h1>
+        <input type="text" id="title" name="title" placeholder="Title">
+        <input type="time" name="duration" id="duration">
 
         <fieldset class="status_fieldset">
             {% for status in ctx_status %}
             <div class="content">
-                <input type="radio" class="sts" id="status" name="status">
-                <label for="status" style="text-transform: capitalize;">
+                <input type="radio" class="sts" id="status" name="status" value="{{ status.0 }}">
+                <label for="status">
                     {{ status.1 }}
                 </label>
                 {% endfor %}
@@ -33,13 +30,25 @@
         <fieldset>
             {% for genre in ctx_genres %}
             <div class="content">
-                <input type="checkbox" name="genre" id="{{ genre.title }}">
-                <label for="{{ genre.title }}" style="text-transform: capitalize;">
+                <input type="checkbox" name="genre" id="genre" value="{{ genre.id }}">
+                <label for="genre">
                     {{ genre.title }}
                 </label>
             </div>
             {% endfor %}
         </fieldset>
+
+        <fieldset>
+            {% for author in ctx_authors %}
+            <div class="content">
+                <input type="radio" name="author" id="author" value="{{ author.id }}">
+                <label for="author">
+                    {{ author.title }}
+                </label>
+            </div>
+            {% endfor %}
+        </fieldset>
+        <input type="submit" value="Create">
     </form>
 </body>
 
