@@ -109,9 +109,9 @@ class CustomUser(
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
-    def save(self, *args: tuple, **kwargs: dict) -> None:
-        self.full_clean()
-        code: str = os.urandom(20).hex()
+    # def save(self, *args: tuple, **kwargs: dict) -> None:
+    #     self.full_clean()
+    #     code: str = os.urandom(20).hex()
         
-        self.activation_code = code
-        return super().save(*args, **kwargs)
+    #     self.activation_code = code
+    #     return super().save(*args, **kwargs)
