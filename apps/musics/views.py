@@ -10,9 +10,9 @@ from django.http import (
 )
 from django.views.generic import (
     View,
-    ListView,
 )
 from django import forms
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from musics.models import (
     Music,
@@ -24,6 +24,7 @@ from musics.forms import TempForm, RegForm, MusicForm
 from auths.models import CustomUserManager
 
 from typing import Any
+import os
 
 
 class MainView(View):
@@ -69,12 +70,18 @@ class MusicView(HttpResponseMixin, View):
         *args: tuple, 
         **kwargs: dict
     ) -> HttpResponse:
-        form = self.form(request.POST or None)
+        images: InMemoryUploadedFile = request.FILES.get('image')
+        images.name = os.urandom(20).hex().join('.jpg')
+        form = self.form(
+            request.POST,
+            request.FILES
+        )
         if not form.is_valid():
             return HttpResponse('Bad')
         print(form.cleaned_data)
         form.save()
         return HttpResponse('OK')
+
 
 class GenreView(View):
     """View special for music model."""

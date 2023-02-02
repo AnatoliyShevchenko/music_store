@@ -99,6 +99,11 @@ class CustomUser(
         null=True,
         blank=True
     )
+    avatar = models.ImageField(
+        verbose_name='аватарка',
+        upload_to='images/',
+        default=''
+    )
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

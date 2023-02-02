@@ -132,6 +132,11 @@ class Music(AbstractModel):
         default='Unknown',
         max_length=100
     )
+    image = models.ImageField(
+        verbose_name='изображение',
+        upload_to='images/',
+        default=''
+    )
 
     class Meta:
         ordering = (
