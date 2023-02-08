@@ -91,7 +91,7 @@ class CustomUser(
     )
     is_active = models.BooleanField(
         verbose_name='active',
-        default=False
+        default=True
     )
     activation_code = models.CharField(
         verbose_name='code',
