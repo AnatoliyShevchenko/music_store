@@ -45,7 +45,8 @@ class MainView(View):
             request=request,
             template_name='musics/home_page.html',
             context={
-                'u': u
+                'u': u,
+                'ctx_user' : request.user
             }
         )
 

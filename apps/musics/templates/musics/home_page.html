@@ -1,16 +1,31 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Document</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static '/css/style.css' %}">
-    </head>
-    <body>
-        <h1 class="main">Home</h1>
-        {{u}}
-    </body>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="header__controller">
+            <div class="logo"></div>
+            <div class="navs">
+                {% if not ctx_user.is_anonymous %}
+                    <a href="/auths/profile" class="link">Profile</a>
+                    <a href="/logout/" class="link">Logout</a>
+                {% else %}
+                    <a href="/auths/" class="link">Login</a>
+                    <a href="/reg/" class="link">Registration</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <h1 class="main__title">Home</h1>
+    <div class="card">
+        <h1 class="main__title">{{ ctx_user.email }}</h1>
+        <h1>Welcome to site!</h1>
+    </div>
+</body>
 </html>

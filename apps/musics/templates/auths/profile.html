@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,11 +10,11 @@
 <body>
     <form action="" method="post">
         {% csrf_token %}
-        {{ ctx_form.as_p }}
-        Почта: {{ ctx_context.email }}<br>
-        Имя: {{ ctx_context.first_name }}<br>
-        Фамилия: {{ ctx_context.last_name }}<br>
-        <input type="submit" name="submit" id="submit">
+        <span>Почта: {{ ctx_context.email }}<br></span>
+        <span>Имя: {{ ctx_context.first_name }}<br></span>
+        <span>Фамилия: {{ ctx_context.last_name }}<br></span>
+        <a href="/auths/edit">edit</a>
+        <a href="/auths/change-password">change password</a>        
     </form>
 </body>
 </html>

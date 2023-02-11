@@ -60,3 +60,37 @@ input[type="text"], input[type="submit"], input[type="time"]{
     text-transform: uppercase;
     letter-spacing: 3px;
 }
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 15px;
+    height: 120px;
+    width: 100vw;
+    background-color: rgba(87, 86, 86, 0.47);
+}
+.header__controller {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: black;
+}
+.navs {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.link {
+    color: black;
+    text-decoration: none;
+    font-size: 2em;
+}

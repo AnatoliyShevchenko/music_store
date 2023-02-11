@@ -12,7 +12,14 @@ from apps.musics.views import (
     TempView,
     RegView
 )
-from apps.auths.views import RegistrationView, LoginView, ProfileView
+from apps.auths.views import (
+    RegistrationView, 
+    LoginView, 
+    ProfileView, 
+    LogoutView,
+    EditView,
+    ChangePasswordView
+)
 
 
 urlpatterns = [
@@ -23,8 +30,11 @@ urlpatterns = [
     path('authors/', AuthorView.as_view()),
     path('temp/', TempView.as_view()),
     path('reg/', RegistrationView.as_view()),
-    path('login/', LoginView.as_view()),
-    path('login/profile/', ProfileView.as_view()),
+    path('auths/', LoginView.as_view()),
+    path('auths/profile/', ProfileView.as_view()),
+    path('auths/edit/', EditView.as_view()),
+    path('auths/change-password/', ChangePasswordView.as_view()),
+    path('logout/', LogoutView.as_view()),
     path('activate/<str:code>/', au_views.activate_user)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
